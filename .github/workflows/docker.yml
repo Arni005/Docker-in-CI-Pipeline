@@ -1,0 +1,21 @@
+name: Run Nginx Container
+
+on:
+  push:
+
+jobs:
+  run-nginx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull Nginx Image
+        run: docker pull nginx:latest
+
+      - name: Run Nginx Container
+        run: docker run -d -p 8080:80 --name nginx-container nginx:latest
+
+      - name: Verify container is running
+        run: |
+          sleep 2
+          docker ps
+          curl -sf http://localhost:8080
